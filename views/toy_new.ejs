@@ -1,0 +1,45 @@
+<%- include("partials/header") %>
+<div class="container">
+    <h1>Add New Toy</h1>
+<form action="/toys" method="post">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" name="title" placeholder="Title of toy" autofocus>
+    </div>
+    <div class="mb-3">
+      <label for="genre" class="form-label">Genre</label>
+      <select class="form-control" name="genre" id="genre">
+        <option disabled selected> --- Choose Below ---</option>
+        <option>LEGO</option>
+        <option>Rubik</option>
+        <option>Chess</option>
+        <option>Jenga</option>
+        <option>Trampoline</option>
+        <option>Memory Game</option>
+        <option>Sports & Outdoor Play Toys</option>
+        <option>Remote & App Controlled Games</option>
+        <option>Puzzles</option>
+        <option>UNO</option>
+        <option>Patin</option>
+        <option>Stuffed Animals</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" name="price" placeholder="e.g. 10">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea type="text" class="form-control" name="description" rows="5" cols="30"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="image_link" class="form-label">Link for image</label>
+        <input type="text" class="form-control" name="image_link" placeholder="https://www.image.com" >
+      </div>
+    <div class="center-button">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<%- include("partials/footer") %>

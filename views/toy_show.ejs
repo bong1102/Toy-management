@@ -1,0 +1,35 @@
+<%- include("partials/header") %>
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-6 show_image-container">
+            <img src=" <%= toy.image_link %>">
+        </div>
+        <div class="col-6 show_details-container">
+            <h1><%= toy.title %></h1>
+            <p><%= toy.description%></p>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Genre</th>
+                        <td><%= toy.genre %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Price</th>
+                        <td><%= toy.price %></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <a href="/toys/<%= toy._id %>/edit" class="btn btn-outline-info btn-lg mb-2">Edit</a>
+                <form action="/toys/<%=toy._id%>?_method=DELETE" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-outline-danger btn-lg mb-2">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include("partials/footer") %>

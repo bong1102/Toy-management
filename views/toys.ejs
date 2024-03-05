@@ -1,0 +1,16 @@
+<%- include("partials/header") %>
+    
+    <div class="container">
+        <div class="row mt-2">
+        <% toys.forEach((toy) => { %>
+            <div class="card m-3">
+                <a href="/toys/<%= toy._id %>">
+                    <img class="card-img card-img-top" src="<%= toy.image_link %>" alt="Picture of toys">
+                </a>
+                <h3 class="card-title mt-3"><%= toy.title %></h3>
+                <p class="card-text mb-3 mx-3"><%= toy.description %></p>
+            </div>
+           <% }) %>
+        </div>
+    </div>
+<%- include("partials/footer") %>

@@ -1,0 +1,46 @@
+<%- include("partials/header") %>
+<div class="container">
+    <h1>Edit Toy</h1>
+    <!-- Use the methodOverride to override the actual(thực tế) post method  -->
+    <form action="/toys/<%= toy._id %>?_method=PUT" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" name="title" value="<%= toy.title %>">
+    </div>
+    <div class="mb-3">
+      <label for="genre" class="form-label">Genre</label>
+      <select class="form-control" name="genre" id="genre">
+        <option disabled> --- Choose Below ---</option>
+        <option <%= toy.genre === 'LEGO' ? 'selected' : ''%>>LEGO</option>
+        <option <%= toy.genre === 'Rubik' ? 'selected' : ''%>>Rubik</option>
+        <option <%= toy.genre === 'Chess' ? 'selected' : ''%>>Chess</option>
+        <option <%= toy.genre === 'Jenga' ? 'selected' : ''%>>Jenga</option>
+        <option <%= toy.genre === 'Trampoline' ? 'selected' : ''%>>Trampoline</option>
+        <option <%= toy.genre === 'Memory Game' ? 'selected' : ''%>>Memory Game</option>
+        <option <%= toy.genre === 'Sports & Outdoor Play Toys' ? 'selected' : ''%>>Sports & Outdoor Play Toys</option>
+        <option <%= toy.genre === 'Remote & App Controlled Games' ? 'selected' : ''%>>Remote & App Controlled Games</option>
+        <option <%= toy.genre === 'Puzzles' ? 'selected' : ''%>>Puzzles</option>
+        <option <%= toy.genre === 'UNO' ? 'selected' : ''%>>UNO</option>
+        <option <%= toy.genre === 'Patin' ? 'selected' : ''%>>Patin</option>
+        <option <%= toy.genre === 'Stuffed Animals' ? 'selected' : ''%>>Stuffed Animals</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" class="form-control" name="price" value="<%= toy.price %>">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea type="text" class="form-control" name="description" rows="5" cols="30"><%= toy.description %></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="image_link" class="form-label">Link for image</label>
+        <input type="text" class="form-control" name="image_link" value="<%= toy.image_link %>" >
+      </div>
+    <div class="center-button">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<%- include("partials/footer") %>
