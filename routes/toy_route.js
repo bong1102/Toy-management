@@ -3,19 +3,20 @@ const router = express.Router();
 const Toy = require('../models/toy')
 
 // Index
-router.get("/" , async (req, res) => {
-    try{
-        const toys =await Toy.find().exec()
-        res.render('toys', {toys});
-    }catch(err){
+router.get("/" , (req, res) => {
+    Toy.find().exec()
+    .then((foundToy) =>{
+    res.render("toys", {toys:foundToy}
+    )})
+    .catch((err) =>{
         console.log(err);
-        res.send("The index is broken.... ")
-    } 
+        res.send("Index broken....", err)
+    })        
 
 })
 
 // Create
-router.post("/", async(req, res) => {
+router.post("/", (req, res) => {
    // console.log(req.body);
     genre = req.body.genre; 
    if (Toy.schema.path('genre').enumValues.includes(genre)) { 
@@ -27,16 +28,16 @@ router.post("/", async(req, res) => {
             image_link: req.body.image_link
         }
         
-        try{
-            const toy = await  Toy.create(newToy);
-            console.log(toy);
+        Toy.create(newToy)
+        .then((toy) =>{
+            console.log(toy)
             res.redirect('/toys/' + toy._id);
-        }catch(err){
+        })
+        .catch((err)=>{
             console.log(err);
-            res.send("Create Fail")
-        }
-    }
-
+            res.redirect("/toys")
+        })
+   }
 })
 
 // New
@@ -45,47 +46,47 @@ router.get('/new', (req, res) => {
 })
 
 //Search
-router.get("/search", async(req,res) =>{
-    try {
-        const toys = await Toy.find({
-          $text: {
+router.get("/search", (req,res) =>{
+    Toy.find({
+        $text: {
             $search: req.query.term
-          }  
-        });
-        res.render('toys', {toys})
-    }catch(err){
+        }
+    }).then((toys) => {
+        res.render('toys', { toys });
+    }).catch((err) => {
         console.log(err);
-        res.send("Search Faild")
-    }
-})
-
-
+        res.send("Search Failed");
+    });
+});
 // Show
-router.get("/:id", async (req,res) =>{
-    try{
-        const toy = await Toy.findById(req.params.id).exec()
+router.get("/:id", (req,res) =>{
+    
+    Toy.findById(req.params.id).exec()
+    .then((toy)=>{
         res.render("toy_show", {toy})
-    }catch(err){
+    })
+    .catch((err) =>{
         console.log(err);
-        res.send("Show Fail")
-    }
+        res.send("Show Fail",err)
+    })
     
 })
 
 //Edit
-router.get("/:id/edit", async (req,res) =>{
+router.get("/:id/edit",  (req,res) =>{
     // get the toy from DB
-    try{
-        const toy = await Toy.findById(req.params.id).exec()
+        Toy.findById(req.params.id).exec()
+    .then((toy) =>{
         res.render("toy_edit", {toy})
-    }catch(err) {
-        console.log(err);;
+    })
+    .catch((err) =>{
+        console.log(err);
         res.send("Edit Fail")
-    }
+    })
 })
 
 // Update
-router.put("/:id", async (req,res) =>{
+router.put("/:id", (req,res) =>{
     const genre = req.body.genre; 
    if (Toy.schema.path('genre').enumValues.includes(genre)) { 
             const toyBody = {
@@ -95,28 +96,18 @@ router.put("/:id", async (req,res) =>{
                 description: req.body.description,
                 image_link: req.body.image_link
             }
-        try{
-         const toy = await Toy.findByIdAndUpdate(req.params.id, toyBody, {new:true}).exec()
-         res.redirect(`/toys/${req.params.id}`)
-         
-        }catch(err) {
+        Toy.findByIdAndUpdate(req.params.id, toyBody, {new:true}).exec()
+        .then((updateToy) =>{
+            console.log(updateToy);
+            res.redirect(`/toys/${req.params.id}`)
+        })
+        .catch((err) =>{
             console.log(err);
             res.send("Update Fail")
-        }
+        })
     }
 
 })
 
-// Delete
-router.delete("/:id", async(req,res) => {
-    try{
-    const deleteToy = await Toy.findByIdAndDelete(req.params.id).exec()
-    console.log("Delected: ", deleteToy);
-    res.redirect("/toys")
-    }catch(err){
-        console.log(err);
-        res.send("Delete Fail")
-    }
-})
 
 module.exports = router;

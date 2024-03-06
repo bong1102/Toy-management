@@ -32,10 +32,6 @@ app.use(methodOverride('_method'));
 // Morgan
 app.use(morgan('tiny'))// Used to log info of req HTTP 
 
-// Seed the DB
-const seed = require('./utils/seed');
-seed();
-
 // mongodb configuration 
 const DB_URL = process.env.ATLAS_URL;
 mongoose.connect(DB_URL)
