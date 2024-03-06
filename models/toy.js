@@ -2,12 +2,7 @@ const mongoose = require('mongoose');
 
 const toySchema = new mongoose.Schema(
     {
-        title: {
-        type: String,
-        require: [true, 'Give the name(title) for this toy'],
-        uniqued: true,
-        trim: true
-        },
+        title: String,
         genre: {
            type: String,
            // check if value have in array
@@ -16,18 +11,9 @@ const toySchema = new mongoose.Schema(
            'Puzzles', 'UNO', 'Patin', 'Stuffed Animals'] ,
            message: '{VALUE} is not supported'
         },
-        price: {
-            type: Number,
-            require: true
-        },
-        description: {
-            type: String,
-            trim: true
-        },
-        image_link: {
-            type: String,
-            required: [true, 'This toy must have a cover image']
-        }
+        price: Number,
+        description: String,
+        image_link : String
     }
 );
  toySchema.index({

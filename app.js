@@ -34,7 +34,8 @@ app.use(morgan('tiny'))// Used to log info of req HTTP
 
 // mongodb configuration 
 const DB_URL = process.env.ATLAS_URL;
-mongoose.connect(DB_URL)
+mongoose.connect(DB_URL, {useNewUrlParser: true,
+   })
 .then(() => {
     console.log("Successfully connect to databse!");
 })
