@@ -107,5 +107,16 @@ router.put("/:id", async (req,res) =>{
 
 })
 
+// Delete
+router.delete("/:id", async(req,res) => {
+    try{
+    const deleteToy = await Toy.findByIdAndDelete(req.params.id).exec()
+    console.log("Delected: ", deleteToy);
+    res.redirect("/toys")
+    }catch(err){
+        console.log(err);
+        res.send("Delete Fail")
+    }
+})
 
 module.exports = router;

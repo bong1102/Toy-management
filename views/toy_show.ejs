@@ -22,7 +22,9 @@
             </table>
             <div class="text-center">
                 <a href="/toys/<%= toy._id %>/edit" class="btn btn-outline-info btn-lg mb-2">Edit</a>
-
+                <form action="/toys/<%=toy._id%>?_method=DELETE" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-outline-danger btn-lg mb-2">Delete</button>
+                </form>
             </div>
         </div>
     </div>
